@@ -52,7 +52,11 @@ GET http://localhost:3000/tweets/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjg1ODU4NDM0fQ.ArksOY3hAECyTfScPWZZfArwSkoK7F2IWli8-fQ-nLE 
 
 ###
-GET http://localhost:3000/tweets/1/likes/
+GET http://localhost:3000/tweets/2/likes/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjg1ODU4NDM0fQ.ArksOY3hAECyTfScPWZZfArwSkoK7F2IWli8-fQ-nLE 
+
+###
+GET http://localhost:3000/tweets/3/likes/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjg1ODU4NDM0fQ.ArksOY3hAECyTfScPWZZfArwSkoK7F2IWli8-fQ-nLE 
 
 ###
@@ -60,7 +64,11 @@ GET http://localhost:3000/tweets/1/likes/
 Authorization: Bearer eyJhbGciOiJIU
 
 ###
-GET http://localhost:3000/tweets/1/replies/
+GET http://localhost:3000/tweets/2/replies/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjg1ODU4NDM0fQ.ArksOY3hAECyTfScPWZZfArwSkoK7F2IWli8-fQ-nLE 
+###
+
+GET http://localhost:3000/tweets/3/replies/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvZUJpZGVuIiwiaWF0IjoxNjg1ODU4NDM0fQ.ArksOY3hAECyTfScPWZZfArwSkoK7F2IWli8-fQ-nLE 
 
 ###
