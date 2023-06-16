@@ -234,35 +234,72 @@ app.get(
 app.get(
   "/tweets/:tweetId/likes/",
   authenticateToken,
-  tweetAccessVerification,
   async (request, response) => {
+    const { username } = request;
     const { tweetId } = request.params;
-    const getLikesQuery = `
-    SELECT username FROM user 
+    const getUserIdQuery = `
+        SELECT user_id FROM user 
+        WHERE username = '${username}';
+        `;
+    const getUserId = await db.get(getUserIdQuery);
+    console.log(getUserId);
+
+    const checkTheTweetUser = `
+  	  select * from tweet inner join follower on tweet.user_id =   
+      follower.following_user_id
+      where tweet.tweet_id = ${tweetId} and follower.follower_user_id = ${getUserId.user_id};`;
+
+    const tweet = await db.get(checkTheTweetUser);
+
+    if (tweet === undefined) {
+      response.status(400);
+      response.send(`Invalid Request`);
+    } else {
+      const getLikesQuery = `
+    SELECT user.username FROM user 
     INNER JOIN like ON 
     user.user_id = like.like_id
-    WHERE tweet_id = ${tweetId};
+    WHERE like.tweet_id = ${tweetId};
     `;
-    const likedUsers = await db.all(getLikesQuery);
-    const usersArray = likedUsers.map((eachUser) => eachUser.username);
-    response.send({ likes: usersArray });
+      const likedUsers = await db.all(getLikesQuery);
+      const likes = likedUsers.map((eachUser) => {
+        return eachUser["username"];
+      });
+      response.send({ likes });
+    }
   }
 );
 
 app.get(
   "/tweets/:tweetId/replies/",
   authenticateToken,
-  tweetAccessVerification,
   async (request, response) => {
+    const { username } = request;
     const { tweetId } = request.params;
-    const getReplyQuery = `
-    SELECT name,reply FROM user
-    INNER JOIN reply ON 
-    user.user_id = reply.reply_id 
-    WHERE tweet_id = ${tweetId};
-    `;
-    const repliedUsers = await db.all(getReplyQuery);
-    response.send({ replies: repliedUsers });
+    const getUserIdQuery = `
+        SELECT user_id FROM user 
+        WHERE username = '${username}';
+        `;
+    const getUserId = await db.get(getUserIdQuery);
+    console.log(getUserId);
+    const checkTheTweetUser = `
+        select * from tweet inner join follower on tweet.user_id =   
+        follower.following_user_id
+        where tweet.tweet_id = ${tweetId} and follower.follower_user_id = ${getUserId.user_id};`;
+    const tweet = await db.get(checkTheTweetUser);
+    if (tweet === undefined) {
+      response.status(400);
+      response.send(`Invalid Request`);
+    } else {
+      const getReplyQuery = `
+        SELECT name,reply FROM user
+        INNER JOIN reply ON 
+        user.user_id = reply.reply_id 
+        WHERE reply.tweet_id = ${tweetId};
+        `;
+      const repliedUsers = await db.all(getReplyQuery);
+      response.send({ replies: repliedUsers });
+    }
   }
 );
 
