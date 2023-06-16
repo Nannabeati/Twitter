@@ -265,7 +265,7 @@ app.get(
       const likes = likedUsers.map((eachUser) => {
         return eachUser["username"];
       });
-      response.send({ likes });
+      response.send(likes);
     }
   }
 );
